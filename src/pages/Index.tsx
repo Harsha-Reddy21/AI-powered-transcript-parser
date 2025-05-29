@@ -1,14 +1,14 @@
-
 import React, { useState } from 'react';
 import TaskInput from '@/components/TaskInput';
 import TaskList from '@/components/TaskList';
 import { Task } from '@/types/Task';
+import { v4 as uuidv4 } from 'uuid';
 
 const Index = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const handleAddTask = (taskData: Omit<Task, 'id'>) => {
-    const newTask: Task = { ...taskData, id: Date.now().toString() };
+    const newTask: Task = { ...taskData, id: uuidv4() };
     setTasks(prev => [...prev, newTask]);
   };
 

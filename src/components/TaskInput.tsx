@@ -59,28 +59,24 @@ const TaskInput: React.FC<TaskInputProps> = ({ onAddTask }) => {
       
       try {
         const parsedData = await parseTaskText(input.trim());
-        const date = parseDateString(parsedData.date);
-        
-        console.log('Parsed data hlsdfkjas:', parsedData);
-        // Convert the parsed data to our Task format
-        const taskData: Omit<Task, 'id'> = {
-          name: parsedData.title || input,
-          assignee: parsedData.assignee || 'Unassigned',
-          dueDate: parsedData.date || 'No due date',
-          priority: parsedData.priority === 'high' ? 'P1' : 
-                   parsedData.priority === 'medium' ? 'P2' : 
-                   parsedData.priority === 'low' ? 'P3' : 'P3',
-          originalText: input
-        };
+        console.log('✅ Final task data parsedData:', JSON.stringify(parsedData, null, 2));
 
-        console.log('\n✅ Final task data:', JSON.stringify(taskData, null, 2));
-        console.log('\n✅ Final task data parsedData:', JSON.stringify(parsedData, null, 2));
+        // Process each task in the array
+        parsedData.tasks.forEach(task => {
+          const taskData: Omit<Task, 'id'> = {
+            name: task.title,
+            assignee: task.assignee || 'Unassigned',
+            dueDate: task.date || 'No due date',
+            priority: task.priority || 'P3',
+            originalText: input
+          };
+          onAddTask(taskData);
+        });
 
-        onAddTask(taskData);
         setInput('');
         toast({
-          title: "Task added successfully",
-          description: "Your task has been parsed and added to the list.",
+          title: "Tasks added successfully",
+          description: `${parsedData.tasks.length} task(s) have been parsed and added to the list.`,
         });
       } catch (error) {
         console.error('\n❌ Error in task input:', error);
@@ -88,8 +84,8 @@ const TaskInput: React.FC<TaskInputProps> = ({ onAddTask }) => {
         console.error('\n🔍 Detailed error:', errorMessage);
         
         toast({
-          title: "Error adding task",
-          description: `Failed to parse task: ${errorMessage}`,
+          title: "Error adding tasks",
+          description: `Failed to parse tasks: ${errorMessage}`,
           variant: "destructive",
         });
       } finally {

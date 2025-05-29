@@ -6,15 +6,19 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true // ⚠️ Note: Use backend proxy in production!
 });
 
-// TypeScript interface for the parsed task
-export interface ParsedTaskData {
-  title?: string;
-  assignee?: string;
-  date?: string;
-  priority?: 'low' | 'medium' | 'high';
-  description?: string;
-  status?: 'todo' | 'in-progress' | 'done';
+// TypeScript interface for a single task
+interface SingleTaskData {
+  title: string;
+  assignee: string | null;
+  date: string | null;
+  priority: 'P1' | 'P2' | 'P3' | 'P4';
 }
+
+// TypeScript interface for the parsed task response
+export interface ParsedTaskData {
+  tasks: SingleTaskData[];
+}
+
 const examples=[
     {
         'Input':'Call harsha at 5pm',
@@ -58,13 +62,40 @@ const examples=[
 const SYSTEM_PROMPT = `You are a task parsing assistant.
 
 Your job is to extract structured task data from natural language input. 
-Return a JSON object with the following fields:
+Return a JSON object with a "tasks" array containing task objects. Each task should include:
+
 - "title": a short title for the task
 - "assignee": the name of the person responsible (or null if not provided)
 - "date": due date or time in natural language (or null if not specified)
-- "priority": one of [P1,P2,P3,P4] if not specified return P3
+- "priority": one of [P1, P2, P3, P4]; if not specified, default to P3
 
-use this ${JSON.stringify(examples)} to understand the input and output format.
+Example input: "Aman you take the landing page by 10pm tomorrow. Rajeev you take care of client follow-up by Wednesday. Shreya please review the marketing deck tonight"
+
+Example output:
+{
+  "tasks": [
+    {
+      "title": "Take the landing page",
+      "assignee": "Aman",
+      "date": "10pm tomorrow",
+      "priority": "P3"
+    },
+    {
+      "title": "Take care of client follow-up",
+      "assignee": "Rajeev",
+      "date": "Wednesday",
+      "priority": "P3"
+    },
+    {
+      "title": "Review the marketing deck",
+      "assignee": "Shreya",
+      "date": "tonight",
+      "priority": "P3"
+    }
+  ]
+}
+
+Make sure to extract *each task individually* if multiple tasks are mentioned. 
 Respond **only with valid JSON**, no commentary or explanation.
 `;
 
@@ -111,7 +142,27 @@ export async function parseTaskText(text: string): Promise<ParsedTaskData> {
     console.log('\n----------------------------------\n');
     
     // Parse and log the structured result
-    const parsedResult = JSON.parse(result) as ParsedTaskData;
+    const rawResult = JSON.parse(result);
+    let parsedResult: ParsedTaskData;
+    
+    // Handle both single task and multiple task responses
+    if (Array.isArray(rawResult.tasks)) {
+      parsedResult = rawResult as ParsedTaskData;
+    } else if (rawResult.title) {
+      // Single task response
+      parsedResult = {
+        tasks: [{
+          title: rawResult.title,
+          assignee: rawResult.assignee || null,
+          date: rawResult.date || null,
+          priority: rawResult.priority || 'P3'
+        }]
+      };
+    } else {
+      // No tasks
+      parsedResult = { tasks: [] };
+    }
+
     console.log('✨ Parsed Result:');
     console.log(JSON.stringify(parsedResult, null, 2));
     console.log('\n==================================\n');

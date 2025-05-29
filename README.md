@@ -1,65 +1,68 @@
 # Natural Task Scribe
 
-A React application that converts natural language task descriptions into structured task data using OpenAI's API.
+An AI-powered transcript parser that automatically extracts tasks from meeting transcripts and organizes them in a beautiful task board.
 
-## Prerequisites
+## Features
 
-- Node.js (v18 or higher recommended)
-- npm (v9 or higher recommended)
-- OpenAI API key
+- 📝 Paste meeting transcripts and automatically extract tasks
+- 👥 Automatically identifies task assignees
+- ⏰ Detects and parses deadlines
+- 🎯 Default P3 priority for all tasks
+- ✨ Modern, responsive UI with task cards
+- ✅ Mark tasks as complete
+- 🎨 Color-coded priorities and completion status
 
-## Environment Setup
+## Getting Started
 
-1. Create a `.env` file in the root directory
-2. Add the following environment variables:
+### Prerequisites
 
-```env
-VITE_OPENAI_API_KEY=your_openai_api_key_here
-VITE_OPENAI_MODEL=gpt-3.5-turbo  # Optional - defaults to gpt-3.5-turbo
-```
+- Node.js 18.x or later
+- npm 9.x or later
 
-## Installation and Setup
+### Installation
 
 1. Clone the repository:
-```sh
-git clone <'https://github.com/Harsha-Reddy21/natural-task-scribe'>
+```bash
+git clone https://github.com/yourusername/natural-task-scribe.git
 cd natural-task-scribe
 ```
 
 2. Install dependencies:
-```sh
+```bash
 npm install
 ```
 
-3. Set up environment variables as described above
-
-4. Start the development server:
-```sh
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-The application will be available at `http://localhost:8080`
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Project Structure
+## Usage
 
-- `/src` - Source code
-  - `/components` - React components
-  - `/lib` - Utility functions and API clients
-  - `/pages` - Page components
-  - `/hooks` - Custom React hooks
+1. Navigate to the web app
+2. Paste your meeting transcript in the text area
+3. Click "Extract Tasks"
+4. View and manage your tasks in the task board below
+
+### Example Transcript
+
+```
+Aman you take the landing page by 10pm tomorrow. Rajeev you take care of client follow-up by Wednesday. Shreya please review the marketing deck tonight.
+```
 
 ## Technologies Used
 
-This project is built with:
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind CSS
+- UUID
 
-- Vite - Build tool and development server
-- TypeScript - Type-safe JavaScript
-- React - UI framework
-- shadcn-ui - UI component library
-- Tailwind CSS - Utility-first CSS framework
-- OpenAI API - Natural language processing
-- React Query - Server state management
-- React Router - Client-side routing
+## License
+
+MIT License - feel free to use this project for your own purposes.
 
 
 
