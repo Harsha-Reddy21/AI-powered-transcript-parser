@@ -9,7 +9,6 @@ An AI-powered transcript parser that automatically extracts tasks from meeting t
 - ⏰ Detects and parses deadlines
 - 🎯 Priority levels: P1 (High), P2 (Medium), P3 (Low)
 - ✨ Modern, responsive UI with task cards
-- ✅ Mark tasks as complete
 - 🎨 Color-coded priorities and completion status
 - 🔄 Prevents duplicate task creation for same transcript
 
@@ -37,7 +36,7 @@ npm install
 npm run dev
 ```
 
-4. Open [http://localhost:8080](http://localhost:3000) in your browser.
+4. Open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Usage
 
