@@ -7,10 +7,11 @@ An AI-powered transcript parser that automatically extracts tasks from meeting t
 - 📝 Paste meeting transcripts and automatically extract tasks
 - 👥 Automatically identifies task assignees
 - ⏰ Detects and parses deadlines
-- 🎯 Default P3 priority for all tasks
+- 🎯 Priority levels: P1 (High), P2 (Medium), P3 (Low)
 - ✨ Modern, responsive UI with task cards
 - ✅ Mark tasks as complete
 - 🎨 Color-coded priorities and completion status
+- 🔄 Prevents duplicate task creation for same transcript
 
 
 ### Prerequisites
@@ -22,8 +23,8 @@ An AI-powered transcript parser that automatically extracts tasks from meeting t
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/natural-task-scribe.git
-cd natural-task-scribe
+git clone https://github.com/Harsha-Reddy21/AI-powered-transcript-parser.git
+cd AI-powered-transcript-parser
 ```
 
 2. Install dependencies:
@@ -36,7 +37,7 @@ npm install
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:8080](http://localhost:3000) in your browser.
 
 ## Usage
 
@@ -47,24 +48,22 @@ npm run dev
 
 
 ## Example Transcript
+
 ```
 Aman you take the landing page by 10pm tomorrow. Rajeev you take care of client follow-up by Wednesday. Shreya please review the marketing deck tonight.
-``
+```
 
 ### Output Screenshot
 
+- Web
+  ![Web Output](public/web.png)
 
--Web
-![Output](public/web.png)
+- Mobile
+  ![Mobile Output](public/mobile.png)
 
--Mobile
-![Output](public/mobile.png)
-
-
-
-The response from LLM:
-```
-✅ Final task data parsedData: {
+### LLM Response
+```json
+{
   "tasks": [
     {
       "title": "Take the landing page",
