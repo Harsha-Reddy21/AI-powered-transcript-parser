@@ -3,8 +3,9 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Task } from '@/types/Task';
+import { Task, Priority } from '@/types/Task';
 import { Calendar, User, Trash2, Edit3, Check, X } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface TaskCardProps {
   task: Task;
@@ -43,18 +44,36 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onUpdate, onDelete }) => {
           {/* Task Name and Priority */}
           <div className="flex items-center gap-3">
             {isEditing ? (
-              <Input
-                value={editedTask.name}
-                onChange={(e) => setEditedTask({ ...editedTask, name: e.target.value })}
-                className="text-lg font-semibold"
-                placeholder="Task name"
-              />
+              <>
+                <Input
+                  value={editedTask.name}
+                  onChange={(e) => setEditedTask({ ...editedTask, name: e.target.value })}
+                  className="text-lg font-semibold"
+                  placeholder="Task name"
+                />
+                <Select
+                  value={editedTask.priority}
+                  onValueChange={(value) => setEditedTask({ ...editedTask, priority: value as Priority })}
+                >
+                  <SelectTrigger className="w-24">
+                    <SelectValue placeholder="Priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="P1">P1</SelectItem>
+                    <SelectItem value="P2">P2</SelectItem>
+                    <SelectItem value="P3">P3</SelectItem>
+                    <SelectItem value="P4">P4</SelectItem>
+                  </SelectContent>
+                </Select>
+              </>
             ) : (
-              <h3 className="text-lg font-semibold text-gray-900">{task.name}</h3>
+              <>
+                <h3 className="text-lg font-semibold text-gray-900">{task.name}</h3>
+                <Badge className={`${getPriorityColor(task.priority)} text-xs font-medium`}>
+                  {task.priority}
+                </Badge>
+              </>
             )}
-            <Badge className={`${getPriorityColor(task.priority)} text-xs font-medium`}>
-              {task.priority}
-            </Badge>
           </div>
 
           {/* Task Details */}

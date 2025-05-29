@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TaskInput from '@/components/TaskInput';
 import TaskList from '@/components/TaskList';
 import { Task } from '@/types/Task';
 import { v4 as uuidv4 } from 'uuid';
 
+const STORAGE_KEY = 'smart-task-manager-tasks';
+
 const Index = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    // Initialize tasks from local storage if available
+    const savedTasks = localStorage.getItem(STORAGE_KEY);
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  // Save tasks to local storage whenever they change
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleAddTask = (taskData: Omit<Task, 'id'>) => {
     const newTask: Task = { ...taskData, id: uuidv4() };
