@@ -12,7 +12,6 @@ An AI-powered transcript parser that automatically extracts tasks from meeting t
 - ✅ Mark tasks as complete
 - 🎨 Color-coded priorities and completion status
 
-## Getting Started
 
 ### Prerequisites
 
@@ -46,23 +45,46 @@ npm run dev
 3. Click "Extract Tasks"
 4. View and manage your tasks in the task board below
 
-### Example Transcript
 
+## Example Transcript
 ```
 Aman you take the landing page by 10pm tomorrow. Rajeev you take care of client follow-up by Wednesday. Shreya please review the marketing deck tonight.
+``
+
+### Output Screenshot
+
+
+-Web
+![Output](public/web.png)
+
+-Mobile
+![Output](public/mobile.png)
+
+
+
+The response from LLM:
 ```
-
-## Technologies Used
-
-- Next.js 14
-- React 18
-- TypeScript
-- Tailwind CSS
-- UUID
-
-## License
-
-MIT License - feel free to use this project for your own purposes.
-
-
+✅ Final task data parsedData: {
+  "tasks": [
+    {
+      "title": "Take the landing page",
+      "assignee": "Aman",
+      "date": "10pm tomorrow",
+      "priority": "P1"
+    },
+    {
+      "title": "Take care of client follow-up",
+      "assignee": "Rajeev",
+      "date": "Wednesday",
+      "priority": "P3"
+    },
+    {
+      "title": "Review the marketing deck",
+      "assignee": "Shreya",
+      "date": "tonight",
+      "priority": "P3"
+    }
+  ]
+}
+```
 
