@@ -49,7 +49,7 @@ npm run dev
 ## Example Transcript
 
 ```
-Aman you take the landing page by 10pm tomorrow. Rajeev you take care of client follow-up by Wednesday. Shreya please review the marketing deck tonight.
+Harsha call client at 5pm. Sunny give presentation tomorrow which is high priority. Digvesh complete assignement by friday.
 ```
 
 ### Output Screenshot
@@ -61,25 +61,25 @@ Aman you take the landing page by 10pm tomorrow. Rajeev you take care of client 
   ![Mobile Output](public/Mobile.png)
 
 ### LLM Response
-```json
-{
+```
+✅ Final task data parsedData: {
   "tasks": [
     {
-      "title": "Take the landing page",
-      "assignee": "Aman",
-      "date": "10pm tomorrow",
-      "priority": "P1"
-    },
-    {
-      "title": "Take care of client follow-up",
-      "assignee": "Rajeev",
-      "date": "Wednesday",
+      "title": "Call client",
+      "assignee": "Harsha",
+      "date": "5pm",
       "priority": "P3"
     },
     {
-      "title": "Review the marketing deck",
-      "assignee": "Shreya",
-      "date": "tonight",
+      "title": "Give presentation",
+      "assignee": "Sunny",
+      "date": "tomorrow",
+      "priority": "P1"
+    },
+    {
+      "title": "Complete assignment",
+      "assignee": "Digvesh",
+      "date": "Friday",
       "priority": "P3"
     }
   ]
