@@ -59,7 +59,7 @@ Aman you take the landing page by 10pm tomorrow. Rajeev you take care of client 
   ![Web Output](public/web.png)
 
 - Mobile
-  ![Mobile Output](public/mobile.png)
+  ![Mobile Output](public/Mobile.png)
 
 ### LLM Response
 ```json
